@@ -30,27 +30,25 @@ const newAppsCount = regularApps.filter(app =>
     <AppFilters totalApps={regularApps.length} newAppsCount={newAppsCount} />
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-      <!-- Featured apps section (always visible) -->
+      <!-- Featured apps section -->
       {featuredApps.map(app => (
-        <div class="featured-app opacity-100 transform-none">
+        <div class="featured-app">
           <AppCard app={app} />
         </div>
       ))}
       
       <!-- Regular apps section -->
       <div class="contents col-span-full">
-        <!-- Loading Skeletons (only for regular apps) -->
         <div id="skeleton-container" class="contents">
           {[...Array(6)].map(() => (
             <AppCardSkeleton />
           ))}
         </div>
 
-        <!-- Regular apps (initially hidden) -->
         <div id="regular-apps-container" class="contents opacity-0">
           {regularApps.map(app => (
             <div 
-              class="regular-app transform-gpu transition-all duration-500 opacity-0 translate-y-4"
+              class="regular-app"
               data-sort-order={app.sort_order || 999}
             >
               <AppCard app={app} />
@@ -71,34 +69,23 @@ const newAppsCount = regularApps.filter(app =>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // No need to animate featured apps as they're already visible
-    
-    // Handle regular apps loading
-    setTimeout(() => {
-      const skeletonContainer = document.getElementById('skeleton-container');
-      const regularContainer = document.getElementById('regular-apps-container');
+    const skeletonContainer = document.getElementById('skeleton-container');
+    const regularContainer = document.getElementById('regular-apps-container');
 
-      if (skeletonContainer && regularContainer) {
-        // Fade out skeletons
+    if (skeletonContainer && regularContainer) {
+      setTimeout(() => {
         skeletonContainer.style.opacity = '0';
-        
-        // After skeleton fade-out, show regular apps
         setTimeout(() => {
           skeletonContainer.style.display = 'none';
           regularContainer.style.opacity = '1';
-
-          // Animate each regular app card
-          document.querySelectorAll('.regular-app').forEach((card, index) => {
-            setTimeout(() => {
-              requestAnimationFrame(() => {
-                card.classList.remove('opacity-0', 'translate-y-4');
-                card.classList.add('opacity-100', 'translate-y-0');
-              });
-            }, index * 100);
+          
+          // Simple reveal all apps at once
+          document.querySelectorAll('.regular-app').forEach(app => {
+            app.classList.add('visible');
           });
         }, 300);
-      }
-    }, 800);
+      }, 600);
+    }
   });
 
   class AppFilterManager {
@@ -114,18 +101,7 @@ const newAppsCount = regularApps.filter(app =>
     }
 
     private init() {
-      this.showInitialState();
       this.listenToFilterChanges();
-    }
-
-    private showInitialState() {
-      this.allCards.forEach((card, index) => {
-        requestAnimationFrame(() => {
-          card.style.transition = `all 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${index * 50}ms`;
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
-        });
-      });
     }
 
     private listenToFilterChanges() {
@@ -185,7 +161,7 @@ const newAppsCount = regularApps.filter(app =>
 
     private async updateDisplay(visibleCards: HTMLElement[]) {
       if (!this.container) return;
-
+      
       this.container.innerHTML = '';
 
       if (visibleCards.length === 0) {
@@ -197,19 +173,11 @@ const newAppsCount = regularApps.filter(app =>
       }
 
       visibleCards.forEach(card => {
-        card.style.transition = 'none';
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(10px)';
+        card.classList.remove('visible');
         this.container?.appendChild(card);
-      });
-
-      this.container.offsetHeight;
-
-      requestAnimationFrame(() => {
-        visibleCards.forEach(card => {
-          card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
+        
+        requestAnimationFrame(() => {
+          card.classList.add('visible');
         });
       });
     }
@@ -256,51 +224,63 @@ const newAppsCount = regularApps.filter(app =>
 
 <style>
   .featured-app {
-    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    opacity: 1;
   }
 
   .regular-app {
-    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    opacity: 0;
+    transform: translateY(25px);
+    filter: brightness(0.8);
+    transition: 
+      all 0.75s cubic-bezier(0.165, 0.84, 0.44, 1);
+    will-change: transform, opacity;
+    border-radius: inherit;
+  }
+
+  .regular-app.visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+
+  .regular-app.visible:hover {
+    transform: translateY(-8px);
+    transition-duration: 0.4s;
+    box-shadow: 
+      0 24px 32px -12px rgba(0, 0, 0, 0.08),
+      0 16px 24px -12px rgba(0, 0, 0, 0.04);
   }
 
   #regular-apps-container {
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
   #skeleton-container {
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .regular-app {
+      transition: opacity 0.4s ease-out;
+      transform: none;
+      box-shadow: none;
+      filter: none;
+    }
+    .regular-app.visible:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .regular-app.visible:hover {
+      box-shadow: 
+        0 24px 32px -12px rgba(0, 0, 0, 0.24),
+        0 16px 24px -12px rgba(0, 0, 0, 0.16);
+    }
   }
 
   .contents {
     display: contents;
-  }
-
-  @keyframes blob {
-    0% {
-      transform: translate(0px, 0px) scale(1);
-    }
-    33% {
-      transform: translate(30px, -50px) scale(1.1);
-    }
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-    100% {
-      transform: translate(0px, 0px) scale(1);
-    }
-  }
-
-  .animate-blob {
-    animation: blob 7s infinite;
-  }
-
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-
-  .bg-grid-pattern {
-    background-image: linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px);
-    background-size: 24px 24px;
   }
 </style>
