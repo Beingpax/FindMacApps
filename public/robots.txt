@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Prevent crawling of private or utility pages
+Disallow: /api/
+Disallow: /submit
+Disallow: /*.json$
+
+# Sitemap
+Sitemap: https://findmacapps.com/sitemap.xml
+
+# Crawl-delay for heavy crawlers
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
