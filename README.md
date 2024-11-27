@@ -1,6 +1,6 @@
 # FindMacApps
 
-> **Discover the perfect Mac apps for your needs.** A carefully curated directory of high-quality macOS applications.
+> **Discover the perfect Mac apps for your needs.** A carefully curated directory of high-quality macOS applications.  
 
 ## 🎯 Why FindMacApps?
 
