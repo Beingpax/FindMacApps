@@ -79,8 +79,8 @@ const finalKeywords = isApp ? [...new Set([...appKeywords, ...keywords])] : keyw
   {isApp 
     ? `${title} - Download for Mac ${app?.price === 'Free' ? '(Free)' : ''}`
     : title === 'Mac App Directory' 
-      ? 'FindMacApps - Curated Collection of Native macOS Apps'
-      : `${title} - FindMacApps`}
+      ? 'FindMacApps - The Best Mac App Directory | Essential macOS Software'
+      : `${title} | FindMacApps - Essential Mac Software`}
 </title>
 <meta name="description" content={description}>
 <meta name="keywords" content={finalKeywords.join(', ')}>
@@ -93,7 +93,11 @@ const finalKeywords = isApp ? [...new Set([...appKeywords, ...keywords])] : keyw
 
 <!-- Open Graph Meta Tags -->
 <meta property="og:type" content={isApp ? 'product.item' : type}>
-<meta property="og:title" content={isApp ? `${title} for Mac - Download Now` : title}>
+<meta property="og:title" content={isApp 
+  ? `${title} for Mac - Download Now` 
+  : title === 'Mac App Directory'
+    ? 'FindMacApps - The Best Mac App Directory | Essential macOS Software'
+    : `${title} | FindMacApps - Essential Mac Software`}>
 <meta property="og:description" content={description}>
 <meta property="og:image" content={isApp ? appIconUrl : imageUrl}>
 <meta property="og:image:alt" content={isApp ? `${title} for Mac - App Icon` : `${siteName} - Mac App Directory`}>
@@ -112,7 +116,11 @@ const finalKeywords = isApp ? [...new Set([...appKeywords, ...keywords])] : keyw
 <!-- Twitter Card Meta Tags -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@findmacapps">
-<meta name="twitter:title" content={isApp ? `${title} for Mac - Download Now` : title}>
+<meta name="twitter:title" content={isApp 
+  ? `${title} for Mac - Download Now` 
+  : title === 'Mac App Directory'
+    ? 'FindMacApps - The Best Mac App Directory | Essential macOS Software'
+    : `${title} | FindMacApps - Essential Mac Software`}>
 <meta name="twitter:description" content={description}>
 <meta name="twitter:image" content={isApp ? appIconUrl : imageUrl}>
 <meta name="twitter:image:alt" content={isApp ? `${title} for Mac - App Icon` : `${siteName} - Mac App Directory`}>
