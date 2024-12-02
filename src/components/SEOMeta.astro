@@ -22,7 +22,7 @@ interface Props {
 
 const { 
   title, 
-  description, 
+  description,
   image = '/socialshare.png',
   type = 'website',
   publishedDate,
@@ -39,7 +39,7 @@ const {
     'mac utilities',
     'macos software directory'
   ],
-  siteName = 'FindMacApps - Best Mac Apps Directory',
+  siteName = 'FindMacApps - A curated collection of native macOS apps',
   isApp = false,
   app
 } = Astro.props;
@@ -54,9 +54,23 @@ const getAbsoluteUrl = (path: string) => {
   return new URL(path, siteUrl).toString();
 };
 
-const imageUrl = getAbsoluteUrl(image);
-const appIconUrl = app?.icon ? getAbsoluteUrl(app.icon) : undefined;
-const logoUrl = getAbsoluteUrl('/logo.webp');
+// Set up social sharing images
+const socialImage = getAbsoluteUrl(image);
+const appIcon = app?.icon ? getAbsoluteUrl(app.icon) : undefined;
+const defaultSocialImage = getAbsoluteUrl('/socialshare.png');
+
+// Generate page titles
+const pageTitle = isApp 
+  ? `${app?.name || title} - Download for Mac ${app?.price === 'Free' ? '(Free)' : ''}`
+  : title === 'Mac App Directory' 
+    ? 'FindMacApps - Curated Collection of Native macOS Apps'
+    : `${title} - FindMacApps`;
+
+const socialTitle = isApp
+  ? `${app?.name || title} for Mac - Download Now`
+  : title === 'Mac App Directory'
+    ? 'FindMacApps - A curated collection of native macOS apps'
+    : `${title} | FindMacApps - Native macOS apps`;
 
 // Generate app-specific keywords if it's an app page
 const appKeywords = isApp && app ? [
@@ -75,32 +89,18 @@ const finalKeywords = isApp ? [...new Set([...appKeywords, ...keywords])] : keyw
 ---
 
 <!-- Basic Meta Tags -->
-<title>
-  {isApp 
-    ? `${title} - Download for Mac ${app?.price === 'Free' ? '(Free)' : ''}`
-    : title === 'Mac App Directory' 
-      ? 'FindMacApps - Curated Collection of Native macOS Apps'
-      : `${title} - FindMacApps`}
-</title>
+<title>{pageTitle}</title>
 <meta name="description" content={description}>
 <meta name="keywords" content={finalKeywords.join(', ')}>
 <meta name="author" content={author}>
 <link rel="canonical" href={canonicalURL}>
 
-<!-- Favicon -->
-<link rel="icon" type="image/webp" href={getAbsoluteUrl('/favicon.webp')}>
-<link rel="apple-touch-icon" href={logoUrl}>
-
 <!-- Open Graph Meta Tags -->
 <meta property="og:type" content={isApp ? 'product.item' : type}>
-<meta property="og:title" content={isApp 
-  ? `${title} for Mac - Download Now` 
-  : title === 'Mac App Directory'
-    ? 'FindMacApps - A curated collection of native macOS apps | Essential macOS Software'
-    : `${title} | FindMacApps - Native macOS apps`}>
+<meta property="og:title" content={socialTitle}>
 <meta property="og:description" content={description}>
-<meta property="og:image" content={isApp ? appIconUrl : imageUrl}>
-<meta property="og:image:alt" content={isApp ? `${title} for Mac - App Icon` : `${siteName} - Mac App Directory`}>
+<meta property="og:image" content={isApp ? appIcon || defaultSocialImage : defaultSocialImage}>
+<meta property="og:image:alt" content={isApp ? `${app?.name || title} for Mac - App Icon` : `${siteName} - Mac App Directory`}>
 <meta property="og:url" content={canonicalURL}>
 <meta property="og:site_name" content={siteName}>
 <meta property="og:locale" content="en_US">
@@ -116,14 +116,10 @@ const finalKeywords = isApp ? [...new Set([...appKeywords, ...keywords])] : keyw
 <!-- Twitter Card Meta Tags -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@findmacapps">
-<meta name="twitter:title" content={isApp 
-  ? `${title} for Mac - Download Now` 
-  : title === 'Mac App Directory'
-    ? 'FindMacApps - The Best Mac App Directory | Essential macOS Software'
-    : `${title} | FindMacApps - Essential Mac Software`}>
+<meta name="twitter:title" content={socialTitle}>
 <meta name="twitter:description" content={description}>
-<meta name="twitter:image" content={isApp ? appIconUrl : imageUrl}>
-<meta name="twitter:image:alt" content={isApp ? `${title} for Mac - App Icon` : `${siteName} - Mac App Directory`}>
+<meta name="twitter:image" content={isApp ? appIcon || defaultSocialImage : defaultSocialImage}>
+<meta name="twitter:image:alt" content={isApp ? `${app?.name || title} for Mac - App Icon` : `${siteName} - Mac App Directory`}>
 {isApp && <meta name="twitter:label1" content="Price">}
 {isApp && <meta name="twitter:data1" content={app?.price || 'Free'}>}
 
@@ -150,7 +146,7 @@ const finalKeywords = isApp ? [...new Set([...appKeywords, ...keywords])] : keyw
           "priceCurrency": "USD",
           "availability": "https://schema.org/InStock"
         },
-        "image": appIconUrl || imageUrl,
+        "image": appIcon || defaultSocialImage,
         "author": {
           "@type": "Organization",
           "name": app.developer || "Unknown Developer"
@@ -161,7 +157,7 @@ const finalKeywords = isApp ? [...new Set([...appKeywords, ...keywords])] : keyw
           "url": siteUrl,
           "logo": {
             "@type": "ImageObject",
-            "url": logoUrl
+            "url": getAbsoluteUrl('/logo.webp')
           }
         },
         "mainEntityOfPage": {
@@ -175,13 +171,13 @@ const finalKeywords = isApp ? [...new Set([...appKeywords, ...keywords])] : keyw
         "name": siteName,
         "description": description,
         "url": siteUrl,
-        "image": imageUrl,
+        "image": defaultSocialImage,
         "publisher": {
           "@type": "Organization",
           "name": siteName,
           "logo": {
             "@type": "ImageObject",
-            "url": logoUrl
+            "url": getAbsoluteUrl('/logo.webp')
           }
         },
         "potentialAction": {
@@ -192,3 +188,7 @@ const finalKeywords = isApp ? [...new Set([...appKeywords, ...keywords])] : keyw
       }
 )}>
 </script>
+
+<!-- Favicon -->
+<link rel="icon" type="image/webp" href={getAbsoluteUrl('/favicon.webp')}>
+<link rel="apple-touch-icon" href={getAbsoluteUrl('/logo.webp')}>
