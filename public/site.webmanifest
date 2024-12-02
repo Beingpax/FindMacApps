@@ -1,0 +1,26 @@
+{
+  "name": "FindMacApps - Best Mac Apps Directory",
+  "short_name": "FindMacApps",
+  "description": "Discover and download the best Mac applications. A curated directory of high-quality macOS software.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#007AFF",
+  "icons": [
+    {
+      "src": "/favicon.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities", "development"],
+  "lang": "en-US",
+  "dir": "ltr"
+} 

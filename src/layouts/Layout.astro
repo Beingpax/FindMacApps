@@ -1,0 +1,64 @@
+---
+import SEOMeta from '../components/SEOMeta.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  type?: string;
+  image?: string;
+  publishedDate?: string;
+  modifiedDate?: string;
+}
+
+const { 
+  title, 
+  description = "Discover and download the best Mac applications. A curated directory of high-quality macOS software for productivity, creativity, and development.",
+  type,
+  image,
+  publishedDate,
+  modifiedDate
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <SEOMeta
+      title={title}
+      description={description}
+      type={type}
+      image={image}
+      publishedDate={publishedDate}
+      modifiedDate={modifiedDate}
+    />
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Critical CSS -->
+    <link rel="stylesheet" href="/styles/critical.css" />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+
+    <!-- Theme initialization script -->
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('theme') || 
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.classList[theme === 'dark' ? 'add' : 'remove']('dark');
+      })();
+    </script>
+
+    <!-- Fonts -->
+    <link href="https://api.fontshare.com/v2/css?f[]=pp-supply-sans@400,500,700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,500,400&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-gray-50 dark:bg-gray-900">
+    <slot />
+  </body>
+</html>
