@@ -56,8 +56,11 @@ const getAbsoluteUrl = (path: string) => {
 
 // Set up social sharing images
 const socialImage = getAbsoluteUrl(image);
-const appIcon = app?.icon ? getAbsoluteUrl(app.icon) : undefined;
+const appIcon = isApp && app?.icon ? getAbsoluteUrl(app.icon) : undefined;
 const defaultSocialImage = getAbsoluteUrl('/socialshare.png');
+
+// Use app icon for app pages, fallback to default social image
+const finalImage = isApp && appIcon ? appIcon : defaultSocialImage;
 
 // Generate page titles
 const pageTitle = isApp 
@@ -99,7 +102,7 @@ const finalKeywords = isApp ? [...new Set([...appKeywords, ...keywords])] : keyw
 <meta property="og:type" content={isApp ? 'product.item' : type}>
 <meta property="og:title" content={socialTitle}>
 <meta property="og:description" content={description}>
-<meta property="og:image" content={isApp ? appIcon || defaultSocialImage : defaultSocialImage}>
+<meta property="og:image" content={finalImage}>
 <meta property="og:image:alt" content={isApp ? `${app?.name || title} for Mac - App Icon` : `${siteName} - Mac App Directory`}>
 <meta property="og:url" content={canonicalURL}>
 <meta property="og:site_name" content={siteName}>
@@ -118,7 +121,7 @@ const finalKeywords = isApp ? [...new Set([...appKeywords, ...keywords])] : keyw
 <meta name="twitter:site" content="@findmacapps">
 <meta name="twitter:title" content={socialTitle}>
 <meta name="twitter:description" content={description}>
-<meta name="twitter:image" content={isApp ? appIcon || defaultSocialImage : defaultSocialImage}>
+<meta name="twitter:image" content={finalImage}>
 <meta name="twitter:image:alt" content={isApp ? `${app?.name || title} for Mac - App Icon` : `${siteName} - Mac App Directory`}>
 {isApp && <meta name="twitter:label1" content="Price">}
 {isApp && <meta name="twitter:data1" content={app?.price || 'Free'}>}
