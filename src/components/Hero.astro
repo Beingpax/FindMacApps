@@ -8,10 +8,11 @@ import { getAllApps } from '../services/appService';
 const allApps = await getAllApps();
 const totalApps = allApps.length;
 
-const sevenDaysAgo = new Date();
-sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-const recentApps = allApps.filter(app => 
-  new Date(app.created_at!) > sevenDaysAgo
+const regularApps = allApps.filter(app => !app.featured);
+const thirtyDaysAgo = new Date();
+thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+const recentApps = regularApps.filter(app => 
+  new Date(app.created_at!) > thirtyDaysAgo
 ).length;
 ---
 
