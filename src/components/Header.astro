@@ -1,0 +1,256 @@
+---
+import ThemeToggle from './ThemeToggle';
+---
+
+<header class="fixed top-0 left-0 right-0 z-40">
+  <!-- Enhanced layered backdrop -->
+  <div class="absolute inset-0">
+    <!-- Primary backdrop -->
+    <div class="absolute inset-0 bg-transparent backdrop-blur-2xl"></div>
+    
+    <!-- Noise texture -->
+    <div class="absolute inset-0 opacity-[0.015] dark:opacity-[0.03]" 
+      style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9IjAuMDUiLz48L3N2Zz4=');">
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 gap-4">
+      <!-- Logo -->
+      <a href="/" class="group relative isolate">
+        <h1 class="text-[24px] relative px-4 py-2 flex items-center font-['PP_Supply_Sans']">
+          <!-- Main logo container -->
+          <div class="relative flex items-center">
+            <!-- Primary wordmark -->
+            <span class="relative flex items-baseline">
+              <!-- Find - Base text with subtle glow -->
+              <span class="text-gray-600 dark:text-gray-300 
+                font-['PP_Supply_Sans'] font-semibold tracking-tight
+                relative
+                [text-shadow:0_0_10px_rgba(0,0,0,0.1)] dark:[text-shadow:0_0_10px_rgba(255,255,255,0.1)]">
+                <span class="relative z-10">Find</span>
+                <span class="absolute inset-0 blur-[0.5px] opacity-50 z-0">Find</span>
+              </span>
+
+              <!-- Mac - with enhanced depth -->
+              <span class="relative ml-[3px] text-gray-600 dark:text-gray-300 
+                font-['PP_Supply_Sans'] font-semibold tracking-tight">
+                <span class="relative z-10 
+                  [text-shadow:0_0_10px_rgba(0,0,0,0.1)] dark:[text-shadow:0_0_10px_rgba(255,255,255,0.1)]">Mac</span>
+                <span class="absolute inset-0 blur-[1px] opacity-40 z-0 
+                  text-gray-500/50 dark:text-gray-400/50
+                  translate-y-[0.5px]">Mac</span>
+              </span>
+
+              <!-- Apps - with enhanced glow effect -->
+              <span class="relative ml-[3px]">
+                <span class="relative font-['Cabinet_Grotesk'] font-black tracking-tight 
+                  text-indigo-600 dark:text-indigo-400
+                  [text-shadow:0_0_15px_rgba(79,70,229,0.4),0_0_30px_rgba(79,70,229,0.2)] 
+                  dark:[text-shadow:0_0_15px_rgba(129,140,248,0.4),0_0_30px_rgba(129,140,248,0.2)]
+                  transition-all duration-300
+                  group-hover:[text-shadow:0_0_20px_rgba(79,70,229,0.5),0_0_40px_rgba(79,70,229,0.3)] 
+                  dark:group-hover:[text-shadow:0_0_20px_rgba(129,140,248,0.5),0_0_40px_rgba(129,140,248,0.3)]">
+                  Apps
+                </span>
+                <span class="absolute inset-0 blur-[2px] opacity-70 
+                  text-indigo-500/60 dark:text-indigo-400/60
+                  transition-all duration-300
+                  group-hover:opacity-90 group-hover:blur-[3px]">
+                  Apps
+                </span>
+                <!-- Additional depth layer -->
+                <span class="absolute inset-0 blur-[4px] opacity-30 
+                  text-indigo-400/30 dark:text-indigo-300/30
+                  transition-all duration-300
+                  group-hover:opacity-50">
+                  Apps
+                </span>
+              </span>
+            </span>
+
+            <!-- Enhanced hover effect with subtle gradient -->
+            <div class="absolute -inset-x-2 -inset-y-1 -z-10
+              before:absolute before:inset-0 before:rounded-lg
+              before:bg-gradient-to-br before:from-gray-50/0 before:to-indigo-50/0 dark:before:from-gray-800/0 dark:before:to-indigo-900/0
+              before:opacity-0 group-hover:before:opacity-100
+              before:transition-opacity before:duration-500
+              after:absolute after:bottom-0 after:left-1/2 after:right-1/2
+              after:h-[1.5px] after:bg-gradient-to-r after:from-indigo-600/0 after:via-indigo-600/30 after:to-indigo-600/0
+              dark:after:from-indigo-400/0 dark:after:via-indigo-400/30 dark:after:to-indigo-400/0
+              group-hover:after:left-2 group-hover:after:right-2
+              after:transition-all after:duration-500 after:ease-out"></div>
+          </div>
+        </h1>
+      </a>
+
+      <!-- Navigation -->
+      <div class="flex items-center gap-4 sm:gap-6">
+        <!-- Desktop Navigation -->
+        <nav class="hidden sm:flex items-center gap-6">
+          <!-- Analytics Link -->
+          <a 
+            href="https://cloud.umami.is/share/gzwiUqF3uWU5GlTc/macappshq.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+          >
+            Analytics
+          </a>
+
+          <!-- Submit button -->
+          <a 
+            href="/submit"
+            class="group relative inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium
+              text-white rounded-xl overflow-hidden
+              bg-indigo-600 dark:bg-indigo-500
+              transition-all duration-500 ease-out"
+          >
+            <!-- Background with smooth transition -->
+            <span class="absolute inset-0 bg-indigo-600 dark:bg-indigo-500
+              group-hover:bg-indigo-500 dark:group-hover:bg-indigo-400
+              transition-colors duration-500 ease-out"></span>
+
+            <!-- Shine effect -->
+            <span class="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%]
+              bg-gradient-to-r from-transparent via-white/20 to-transparent
+              transition-transform duration-1000 ease-out
+              skew-x-12"></span>
+
+            <!-- Content -->
+            <svg 
+              class="relative w-4 h-4 transition-transform duration-500 ease-out
+                group-hover:rotate-90" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="2" 
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+            <span class="relative">Submit App</span>
+
+            <!-- Subtle lift effect -->
+            <span class="absolute inset-0 rounded-xl ring-1 ring-white/10
+              group-hover:ring-white/20 transition-all duration-500"></span>
+          </a>
+
+          <ThemeToggle client:load />
+        </nav>
+
+        <!-- Mobile menu button -->
+        <button
+          id="mobileMenuButton"
+          class="sm:hidden relative w-10 h-10 rounded-xl
+            bg-gradient-to-br from-gray-50 to-gray-100/50
+            dark:from-gray-800 dark:to-gray-800/50
+            border border-gray-200/50 dark:border-gray-700/50
+            hover:border-primary/20 dark:hover:border-primary/20
+            transition-all duration-300"
+          aria-label="Menu"
+        >
+          <svg class="w-5 h-5 m-auto text-gray-600 dark:text-gray-300" 
+            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu (Initially Hidden) -->
+  <div 
+    id="mobileMenu"
+    class="hidden sm:hidden relative"
+  >
+    <div class="absolute inset-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl"></div>
+    
+    <div class="relative border-t border-gray-200 dark:border-gray-800">
+      <nav class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-2">
+        <a 
+          href="https://cloud.umami.is/share/gzwiUqF3uWU5GlTc/macappshq.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 px-4 py-3 rounded-xl
+            text-gray-600 dark:text-gray-300
+            hover:text-indigo-600 dark:hover:text-indigo-400
+            hover:bg-gray-50 dark:hover:bg-gray-800/50
+            transition-colors duration-200"
+        >
+          <span class="font-medium">Analytics</span>
+        </a>
+
+        <a 
+          href="/submit"
+          class="flex items-center gap-2 px-4 py-3 rounded-xl
+            text-gray-600 dark:text-gray-300
+            hover:text-indigo-600 dark:hover:text-indigo-400
+            hover:bg-gray-50 dark:hover:bg-gray-800/50
+            transition-colors duration-200"
+        >
+          <span class="font-medium">Submit App</span>
+        </a>
+
+        <div class="px-4 py-2">
+          <ThemeToggle client:load />
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobileMenuButton');
+  const mobileMenu = document.getElementById('mobileMenu');
+  let isMenuOpen = false;
+
+  function toggleMenu() {
+    isMenuOpen = !isMenuOpen;
+    if (mobileMenu) {
+      mobileMenu.classList.toggle('hidden', !isMenuOpen);
+    }
+  }
+
+  mobileMenuButton?.addEventListener('click', toggleMenu);
+
+  document.addEventListener('click', (e) => {
+    if (isMenuOpen && 
+        !mobileMenu?.contains(e.target as Node) && 
+        !mobileMenuButton?.contains(e.target as Node)) {
+      toggleMenu();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isMenuOpen) {
+      toggleMenu();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 640 && isMenuOpen) {
+      toggleMenu();
+    }
+  });
+</script>
+
+<style>
+  :global(body) {
+    padding-top: 4rem;
+  }
+
+  /* Add smooth shadow transition for the header */
+  header {
+    transition: box-shadow 0.3s ease;
+  }
+
+  /* Add shadow when scrolling */
+  :global(html:not([data-scroll='0']) header) {
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  }
+</style>
